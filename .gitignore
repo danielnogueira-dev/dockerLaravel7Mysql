@@ -1,0 +1,5 @@
+.env
+web/apache/log
+web/apache/sites-available
+web/php/conf
+mysql/data

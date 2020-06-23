@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+  web:
+    build:
+      context: ${WEB_HOST_BUILDER_PATH}
+      dockerfile: ${DOCKERFILE}
+    ports:
+      - "${WEB_HOST_HTTP_PORT}:${WEB_CONTAINER_HTTP_PORT}"
+    volumes:
+      - ${APPLICATION_HOST_PATH}:${APPLICATION_CONTAINER_PATH}
+      - ${APACHE_HOST_LOG}:${APACHE_CONTAINER_LOG}
+      - ${APACHE_HOST_SITES_AVAILABLE}:${APACHE_CONTAINER_SITES_AVAILABLE}
+      - ${PHP_HOST_CONF}:${PHP_CONTAINER_CONF}
+  composer:
+    build:
+      context: ${COMPOSER_HOST_BUILDER_PATH}
+      dockerfile: ${DOCKERFILE}
+    command: ["composer", "install"]
+    restart: always
+    volumes:
+      - ${APPLICATION_HOST_PATH_NAME}:${COMPOSER_CONTAINER_APP_PATH}
+  mysql:
+    build:
+      context: ${MYSQL_HOST_BUILDER_PATH}
+      dockerfile: ${DOCKERFILE}
+    restart: always
+    ports:
+        - "${MYSQL_HOST_HTTP_PORT}:${MYSQL_CONTAINER_HTTP_PORT}"
+    volumes:
+        - ${MYSQL_HOST_DATA}:${MYSQL_CONTAINER_DATA}
+    environment:
+        - MYSQL_DATABASE=${MYSQL_ENV_DATABASE}
+        - MYSQL_USER=${MYSQL_ENV_USER}
+        - MYSQL_PASSWORD=${MYSQL_ENV_PASSWORD}
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ENV_ROOT_PASSWORD}
+networks:
+  backend:
