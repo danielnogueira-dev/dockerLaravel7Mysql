@@ -11,6 +11,10 @@ composer 1.10.7
 
 mysql 8.0.20
 
+Mongo DB 4.2.8
+
+Mongo Express 0.54.0
+
 # Comandos
 docker-compose up -d
 
@@ -26,3 +30,6 @@ http://app.local
 
 # Configuração de Vhost Local
 127.0.0.1	app.local
+
+# Acessar Mongo Express
+http://localhost:8081/
