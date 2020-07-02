@@ -3,3 +3,5 @@ web/apache/log
 web/apache/sites-available
 web/php/conf
 mysql/data
+rabbitmq/etc
+rabbitmq/logs
